@@ -6,7 +6,7 @@ set current_dir=%~dp0
 
 echo %current_dir%
 
-echo Class-Path: file:/%CD%/ file:/%CD%/libs/ file:/%CD%/libs/jSerialComm-2.9.2.jar file:/%CD%/libs/weka.jar" > manifest.txt
+echo Class-Path: file:/%CD%/ file:/%CD%/libs/ file:/%CD%/libs/jSerialComm-2.9.2.jar file:/%CD%/libs/weka.jar file:/%CD%/libs/ij.jar" > manifest.txt
 jar cvfm %current_dir%dependencies.jar manifest.txt
 echo Removendo o arquivo manifest temporario...
 del manifest.txt

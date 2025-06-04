@@ -8,7 +8,7 @@ current_dir="$(pwd)"
 
 echo "$current_dir"
 
-echo "Class-Path: file:$current_dir/ file:$current_dir/libs/ file:$current_dir/libs/jSerialComm-2.9.2.jar file:$current_dir/libs/weka.jar" > manifest.txt
+echo "Class-Path: file:$current_dir/ file:$current_dir/libs/ file:$current_dir/libs/jSerialComm-2.9.2.jar file:$current_dir/libs/weka.jar file:$current_dir/libs/ij.jar" > manifest.txt
 jar cvfm dependencies.jar manifest.txt
 echo Removendo o arquivo manifest temporario...
 rm manifest.txt
