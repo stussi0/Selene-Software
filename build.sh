@@ -27,7 +27,7 @@ fi
 echo Criar o arquivo .jar com classe executável
 cd out
 echo "Main-Class: servselene/main" > manifest.txt
-jar cvfm main.jar manifest.txt servselene/*.class servselene/tools/*.class servselene/tarefas/*.class
+jar cvfm "$current_dir/out/main.jar" manifest.txt servselene/*.class servselene/tools/*.class servselene/tarefas/*.class
 
 echo Verificar se a criação do .jar foi bem-sucedida
 if [ $? -ne 0 ]; then
