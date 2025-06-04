@@ -1,0 +1,20 @@
+@relation IMC
+
+@attribute peso numeric
+@attribute altura numeric
+@attribute sexo {masculino,feminino}
+@attribute saude {desnutrido,normal,sobrepeso,obeso}
+
+@data
+1.463958,59.199059,feminino,sobrepeso
+1.751348,99.254345,masculino,sobrepeso
+1.670137,72.485932,feminino,sobrepeso
+1.848099,25.511367,masculino,desnutrido
+1.895328,40.954036,feminino,desnutrido
+1.375563,42.600754,feminino,normal
+1.391273,86.409543,feminino,obeso
+1.80305,44.216103,masculino,desnutrido
+1.501195,38.702004,feminino,desnutrido
+1.617575,48.541591,feminino,normal
+1.551343,88.67533,masculino,obeso
+1.782422,53.884082,feminino,normal

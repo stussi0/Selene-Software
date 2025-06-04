@@ -1,0 +1,30 @@
+@relation WekaExcel
+
+@attribute comprimento numeric
+@attribute largura numeric
+@attribute largcompr numeric
+@attribute planta {flor,magueira,mato}
+
+@data
+16.5,3.2,0.19,magueira
+29.5,6,0.2,magueira
+20,4.1,0.21,magueira
+24.1,5.25,0.22,magueira
+25.3,5.6,0.22,magueira
+21.2,5,0.24,magueira
+5.5,3.5,0.64,flor
+5,3,0.6,flor
+5.3,2.2,0.42,flor
+5,2,0.4,flor
+5.1,2.2,0.43,flor
+5.2,3,0.58,flor
+3.2,1.9,0.59,flor
+2.5,1.2,0.48,flor
+1.7,0.5,0.29,mato
+2.3,1,0.43,mato
+2.3,0.9,0.39,mato
+2.2,0.8,0.36,mato
+2.5,1.1,0.44,mato
+2.4,1,0.42,mato
+1.8,0.9,0.5,mato
+1.9,0.7,0.37,mato
