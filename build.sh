@@ -40,9 +40,9 @@ fi
 echo Remover o arquivo manifest temporário
 rm manifest.txt
 
-#echo Gerando javadocs...
-#cd ..
-#javadoc -encoding UTF-8 -cp "$current_dir/dependencies.jar" -d docs -sourcepath src -subpackages servselene
+echo Gerando javadocs...
+cd ..
+javadoc -encoding UTF-8 -cp "$current_dir/dependencies.jar" -d docs -sourcepath src -subpackages servselene
 
 echo Testando compilacao:
 java -jar out/main.jar -v
