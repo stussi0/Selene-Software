@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import servselene.FirmwareSelene;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -20,25 +21,29 @@ import java.io.InputStreamReader;
 */
 public class VermelhaScheduler extends TimerTask {
 
-	public VermelhaScheduler(){
+	FirmwareSelene firmware;
+
+	public VermelhaScheduler(FirmwareSelene firmware){
 		Process pr;
         Runtime rt;
         BufferedReader br;
         String line;
+		this.firmware = firmware;
 	}
 
 	@Override
 	public void run() {
 		Instances db = null;
-		try {
+		if (firmware.isEstado()) try {
 			db = ConverterUtils.DataSource.read("selene.arff");
 			db.setClassIndex(db.numAttributes()-1);
 			MultilayerPerceptron cd = (MultilayerPerceptron) SerializationHelper.read("selene.model");
 			double[] infoAtual = new double[5];
-			infoAtual[0] = (double)10.0; // Sensor 1
-			infoAtual[1] = (double)0.0; // Sensor 2
-			infoAtual[2] = (double)1.0; // Sensor 3
-			infoAtual[3] = (double)1.0; // Sensor 4 ...
+			infoAtual[0] = (double)firmware.getDistancia(); // Sensor 1
+			infoAtual[1] = (double)firmware.getAngulo(); // Sensor 2
+			infoAtual[2] = (double)firmware.getIntensidade(); // Sensor 3
+			infoAtual[3] = (double)firmware.getForma(); // Sensor 4 ...
+			firmware.used();
 			Instance classificacao = db.firstInstance().copy(infoAtual);
 			System.out.println("Resultado: "+db.attribute(4).value((int)cd.classifyInstance(classificacao)));
 		} catch (Exception e) {
@@ -50,10 +55,11 @@ public class VermelhaScheduler extends TimerTask {
 	public static void main(String[] args) {
 		System.out.println("\nInicio da procura por pedras vermelhas...\n");
 		Timer timer = new Timer(); // Instantiating a timer object
+		FirmwareSelene firmware = new FirmwareSelene(null);
 
-		VermelhaScheduler task2 = new VermelhaScheduler(); // Creating another FixedRateSchedulingUsingTimerTask
+		VermelhaScheduler task2 = new VermelhaScheduler(firmware); // Creating another FixedRateSchedulingUsingTimerTask
 		timer.schedule(task2, 1 * 1000, 1 * 1000); // Scheduling it to be executed with fixed delay at every two seconds
-
+		//timer.cancel();
 	}
 	public static void thermalRead() {
 		Process pr= null;

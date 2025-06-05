@@ -12,6 +12,7 @@ import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSink;
 import weka.core.converters.ConverterUtils.DataSource;
 
+import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 //import javax.swing.JOptionPane;
@@ -20,6 +21,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import servselene.tarefas.VermelhaScheduler;
+
 import servselene.tools.FirmwareSerialListener;
 
 import java.io.*;
@@ -27,16 +30,7 @@ import java.net.InetSocketAddress;
 
 public class main {
 
-    public enum ESTADO{
-        DORMINDO,
-        PROCURA_VERMELHO,
-        PROCURA_VERDE,
-        PROCURA_AZUL,
-        INFORMACOES
-    }
-
     public Instances db = null;
-    public ESTADO estado;
 
     static String messageString = "#RESET";
 
@@ -64,7 +58,6 @@ public class main {
     }
 
     public static void main(String[] args) throws Exception {
-
         FileOutputStream file = new FileOutputStream("dados.txt");
         DataOutputStream data = new DataOutputStream(file);
         SerialPort coms[] = SerialPort.getCommPorts();
@@ -81,8 +74,13 @@ public class main {
         comPort.setBaudRate(9600);
         comPort.openPort();
         System.out.println("Porta Aberta...");
-        FirmwareSerialListener firmwareListener = new FirmwareSerialListener(data);
+        FirmwareSelene firmware = new FirmwareSelene(comPort);
+        FirmwareSerialListener firmwareListener = new FirmwareSerialListener(data,firmware);
         comPort.addDataListener(firmwareListener);
+
+        Timer timer = new Timer();
+        VermelhaScheduler task = new VermelhaScheduler(firmware);
+        timer.schedule(task, 1 * 1000, 1 * 1000);
 
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         //server.createContext("/upload", new UploadHandler());
